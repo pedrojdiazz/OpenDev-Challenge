@@ -1,26 +1,27 @@
 from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse, HTMLResponse
+from fastapi.responses import JSONResponse
 from fastapi_pagination import add_pagination
 from src.routes import leads_routes
 from src.exceptions import DatabaseException, NotFoundException, InvalidRequestException
 from src.database import engine, Base
-from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
 Base.metadata.create_all(bind=engine)
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
 app.include_router(leads_routes.router)
 add_pagination(app)
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost", "http://localhost:80"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
-@app.get("/", response_class=HTMLResponse)
-def read_index():
-    with open("static/index.html") as f:
-        return HTMLResponse(content=f.read())
-    
 
 @app.exception_handler(DatabaseException)
 def database_exception_handler(request: Request, exc: DatabaseException):
