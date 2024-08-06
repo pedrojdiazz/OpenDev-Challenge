@@ -1,0 +1,6 @@
+__pycache__
+venv/
+Dockerfile
+.dockerignore
+.mypy_cache
+src/tests
