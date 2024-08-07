@@ -60,8 +60,8 @@ docker-compose -f docker-compose.test.yml run --rm tests
 ### Endpoints
 
 - Frontend Estático: `http://localhost:80`
-- API Leads: `http://localhost:8080/api/leads`
-- Documentación de API: `http://localhost:8080/docs`
+- API Leads: `http://localhost:8000/api/leads`
+- Documentación de API: `http://localhost:8000/docs`
 
 ## Funcionalidades Adicionales
 
