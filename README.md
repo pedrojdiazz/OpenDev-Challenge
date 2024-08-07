@@ -13,18 +13,20 @@ Este proyecto es una aplicación web que combina un frontend estático y un back
 1. **Clona el repositorio**
 
 git clone git@github.com:pedrojdiazz/OpenDev-Challenge.git
+
 2. **Navega al directorio del proyecto**
 
 cd OpenDev-Challenge
+
 3. **Crea un archivo .env**
+
 Crea un archivo llamado `.env` en la raíz del proyecto con las siguientes variables:
 
-makefile
 DATABASE_HOSTNAME=db
 DATABASE_PORT=5432
 DATABASE_USERNAME=postgres
-DATABASE_PASSWORD=
-DATABASE_NAME=
+DATABASE_PASSWORD=password
+DATABASE_NAME=name
 
 4. **Construye la imagen Docker**
 
@@ -37,6 +39,7 @@ docker-compose up
 Esto iniciará tanto el frontend estático como el backend en sus respectivos contenedores Docker.
 
 6. **Correr los tests**
+
 Para ejecutar las pruebas, usa el siguiente comando:
 
 docker-compose -f docker-compose.test.yml run --rm tests
@@ -49,7 +52,7 @@ docker-compose -f docker-compose.test.yml run --rm tests
 - `Lead`: Registra datos de estudiantes junto con la fecha de registro. Utiliza relationship de SQLAlchemy para asociarse con Course.
 - `Course`: Almacena información sobre cursos, como la materia, el número de veces que el lead cursó la materia y el año de inscripción.
 
-**Nota**: La estructura actual está diseñada de manera sencilla para ajustarse a los requerimientos inmediatos del proyecto. Para futuras escalabilidades, se podrían considerar optimizaciones como separar en tablas más específicas con responsabilidades más claras.
+**Nota**: La estructura actual está diseñada de manera sencilla para ajustarse a los requerimientos inmediatos del proyecto. Si se pretende que la aplicacion crezca se deberia normalizar la base de datos
 
 - **routes/**: Contiene el router de la aplicación con los endpoints disponibles.
 - **schemas/**: Incluye las interfaces Pydantic para los modelos de Course y Lead, tanto para entrada como salida de datos.
@@ -63,11 +66,13 @@ docker-compose -f docker-compose.test.yml run --rm tests
 - API Leads: `http://localhost:8000/api/leads`
 - Documentación de API: `http://localhost:8000/docs`
 
-## Funcionalidades Adicionales
+## Patrones de diseño y Consideraciones
 
-- **Paginación**: Utiliza el método `paginate` de FastAPI con SQLAlchemy para gestionar la paginación en las consultas.
+La aplicación sigue una arquitectura modular, separando claramente las responsabilidades entre los diferentes componentes. Se han implementado varios patrones 
+de diseño y buenas prácticas para asegurar la escalabilidad, mantenibilidad y eficiencia del proyecto:
 
-## Consideraciones
-
+- Inyección de Dependencias: Se inyecta una instancia de la sesion de la base de datos al constructor de la clase que maneja los servicios, permitiendo una configuración flexible y una fácil sustitución de dependencias en diferentes entornos (desarrollo, pruebas, producción).
+-  Data Transfer Objects (DTOs): A través de Pydantic, se definen esquemas de datos tanto para la entrada como para la salida, asegurando la validación y normalización de los datos. Esto ayuda a prevenir errores comunes y a mantener un contrato claro entre el cliente y el servidor.
 - Se ha configurado un logger para registrar errores en la consola y se han implementado manejos de excepciones específicos. Aún se pueden mejorar estas características según sea necesario.
 - La aplicación está modularizada y sigue buenas prácticas y patrones de diseño para mantener la calidad del código y facilitar el mantenimiento.
+
