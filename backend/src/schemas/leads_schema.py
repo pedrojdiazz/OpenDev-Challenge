@@ -4,6 +4,7 @@ from pydantic.types import StringConstraints
 from datetime import datetime
 from src.schemas.courses_schema import CourseCreate, CourseOut
 
+
 class LeadBase(BaseModel):
     full_name: str
     email: EmailStr
@@ -14,6 +15,7 @@ class LeadBase(BaseModel):
 
 class LeadCreate(LeadBase):
     courses: List[CourseCreate] = []
+
 
 class LeadOut(LeadBase):
     id: int

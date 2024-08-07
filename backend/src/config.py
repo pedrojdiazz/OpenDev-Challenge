@@ -1,6 +1,7 @@
 import logging
 from pydantic_settings import BaseSettings
 
+
 class Settings(BaseSettings):
     database_hostname: str
     database_port: str
@@ -16,7 +17,7 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
 
-settings: Settings = Settings() # type: ignore
+settings: Settings = Settings()  # type: ignore
 
 logging.basicConfig(
     level=settings.log_level,

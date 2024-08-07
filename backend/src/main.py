@@ -13,6 +13,7 @@ Base.metadata.create_all(bind=engine)
 app.include_router(leads_routes.router)
 add_pagination(app)
 
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost", "http://localhost:80"],
@@ -20,7 +21,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 
 @app.exception_handler(DatabaseException)
@@ -39,7 +39,7 @@ def not_found_exception_handler(request: Request, exc: NotFoundException):
 
 
 @app.exception_handler(InvalidRequestException)
-def invalid_request_exception_handler(request: Request, exc : InvalidRequestException):
+def invalid_request_exception_handler(request: Request, exc: InvalidRequestException):
     return JSONResponse(
         status_code=exc.status_code,
         content={"message": exc.message},
