@@ -2,7 +2,7 @@
 
 ## Descripción
 
-Este proyecto es una aplicación web que combina un frontend estático y un backend desarrollado con FastAPI. El frontend está construido en una imagen Docker y servido a través de Nginx, mientras que el backend utiliza FastAPI con SQLAlchemy y PostgreSQL para la persistencia de datos. La aplicación permite gestionar y visualizar información sobre estudiantes y cursos.
+Este proyecto es una aplicación web que combina un frontend estático y un backend desarrollado con FastAPI. El frontend está construido en una imagen Docker y servido a través de Nginx, mientras que el backend utiliza FastAPI con SQLAlchemy y PostgreSQL para la persistencia de datos. La aplicación permite gestionar y visualizar información sobre los leads requeridos.
 
 ## Requisitos
 
